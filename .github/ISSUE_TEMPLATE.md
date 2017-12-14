@@ -3,8 +3,8 @@
 - [ ] I've read the [guidelines for Contributing to Roots Projects](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md)
 - [ ] This is a feature request
 - [ ] This is a bug report
-- [ ] This request isn't a duplicate of an [existing issue](https://github.com/roots/wp-password-bcrypt/issues)
-- [ ] I've read the [docs](https://github.com/roots/wp-password-bcrypt/blob/master/README.md) and followed them (if applicable)
+- [ ] This request isn't a duplicate of an [existing issue](https://github.com/obto/wp-password-argon2i/issues)
+- [ ] I've read the [docs](https://github.com/obto/wp-password-argon2i/blob/master/README.md) and followed them (if applicable)
 
 Replace any `X` with your information.
 
@@ -31,7 +31,7 @@ X
 
 **Please describe your local environment:**
 
-wp-password-bcrypt version: X
+wp-password-argon2i version: X
 
 WordPress version: X
 

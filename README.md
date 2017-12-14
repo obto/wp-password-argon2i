@@ -1,9 +1,9 @@
-# wp-password-bcrypt
-[![Packagist](https://img.shields.io/packagist/v/roots/wp-password-bcrypt.svg?style=flat-square)](https://packagist.org/packages/roots/wp-password-bcrypt)
-[![Packagist Downloads](https://img.shields.io/packagist/dt/roots/wp-password-bcrypt.svg?style=flat-square)](https://packagist.org/packages/roots/wp-password-bcrypt)
-[![Build Status](https://img.shields.io/travis/roots/wp-password-bcrypt.svg?style=flat-square)](https://travis-ci.org/roots/wp-password-bcrypt)
+# wp-password-argon2i
+[![Packagist](https://img.shields.io/packagist/v/obto/wp-password-argon2i.svg?style=flat-square)](https://packagist.org/packages/obto/wp-password-argon2i)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/obto/wp-password-argon2i.svg?style=flat-square)](https://packagist.org/packages/obto/wp-password-argon2i)
+[![Build Status](https://img.shields.io/travis/obto/wp-password-argon2i.svg?style=flat-square)](https://travis-ci.org/obto/wp-password-argon2i)
 
-wp-password-bcrypt is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [bcrypt](https://en.wikipedia.org/wiki/Bcrypt).
+wp-password-argon2i is a WordPress plugin to replace WP's outdated and insecure MD5-based password hashing with the modern and secure [argon2i](https://en.wikipedia.org/wiki/Argon2).
 
 This plugin requires PHP >= 5.5.0 which introduced the built-in [`password_hash`](http://php.net/manual/en/function.password-hash.php) and [`password_verify`](http://php.net/manual/en/function.password-verify.php) functions.
 
@@ -20,13 +20,13 @@ This plugin is a Composer library so it can be installed in a few ways:
 
 #### Composer Autoloaded
 
-`composer require roots/wp-password-bcrypt`
+`composer require obto/wp-password-argon2i`
 
-`wp-password-bcrypt.php` file will be automatically autoloaded by Composer and it *won't* appear in your plugins.
+`wp-password-argon2i.php` file will be automatically autoloaded by Composer and it *won't* appear in your plugins.
 
 #### Manually as a must-use plugin
 
-If you don't use Composer, you can manually copy `wp-password-bcrypt.php` into your `mu-plugins` folder.
+If you don't use Composer, you can manually copy `wp-password-argon2i.php` into your `mu-plugins` folder.
 
 We **do not** recommend using this as a normal (non-mu) plugin. It makes it too easy to disable or remove the plugin.
 
@@ -60,7 +60,7 @@ The `wp_hash_password_options` filter is available to set the [options](http://p
 #### `wp_check_password`
 
 At its core, this function just calls `password_verify` instead of the default.
-However, it also checks if a user's password was *previously* hashed with the old MD5-based hasher and re-hashes it with bcrypt. This means you can still install this plugin on an existing site and everything will work seamlessly.
+However, it also checks if a user's password was *previously* hashed with the old MD5-based hasher and re-hashes it with argon2i. This means you can still install this plugin on an existing site and everything will work seamlessly.
 
 The `check_password` filter is available just like the default WP function.
 
@@ -72,17 +72,17 @@ This function is included here verbatim but with the addition of returning the h
 
 **What happens to existing passwords when I install the plugin?**
 
-Nothing at first. An existing password is only re-hashed with bcrypt *when they log in*. If a user never logs in, their password will remain hashed with MD5 in your database forever.
+Nothing at first. An existing password is only re-hashed with argon2i *when they log in*. If a user never logs in, their password will remain hashed with MD5 in your database forever.
 
 **Why doesn't this plugin re-hash all existing passwords in the database?**
 
-Right now it's beyond the scope of the plugin. We want to keep it simple and straightforward. This is probably best left up to the individual developer or maybe a separate plugin in the future. See https://github.com/roots/wp-password-bcrypt/issues/6 for more details.
+Right now it's beyond the scope of the plugin. We want to keep it simple and straightforward. This is probably best left up to the individual developer or maybe a separate plugin in the future. See https://github.com/obto/wp-password-argon2i/issues/6 for more details.
 
 **What happens if I remove/deactivate the plugin?**
 
-Magically, everything still works. See this [comment](https://github.com/roots/wp-password-bcrypt/issues/7#issuecomment-190919884) for more details.
+Magically, everything still works. See this [comment](https://github.com/obto/wp-password-argon2i/issues/7#issuecomment-190919884) for more details.
 
-Any existing bcrypt hashed passwords will remain that way. Any new users or users resetting a password will get a new MD5 hashed password.
+Any existing argon2i hashed passwords will remain that way. Any new users or users resetting a password will get a new MD5 hashed password.
 
 **Why aren't you using the password_compat library so this works back to PHP 5.3.7?**
 
@@ -90,7 +90,7 @@ The [password_compact](https://github.com/ircmaxell/password_compat) library is 
 
 **Why doesn't this plugin show up in the admin?**
 
-If you're using Composer, then the `wp-password-bcrypt.php` file is automatically autoloaded. It's not treated as a true WordPress plugin since the package type is not set to `wordpress-muplugin` so it won't show up in the plugin list.
+If you're using Composer, then the `wp-password-argon2i.php` file is automatically autoloaded. It's not treated as a true WordPress plugin since the package type is not set to `wordpress-muplugin` so it won't show up in the plugin list.
 
 **What's wrong with using this as a plugin instead of a must-use plugin?**
 
@@ -98,11 +98,11 @@ As explained above, you don't want to disable this plugin once you've enabled it
 
 **How is this different than other plugins which already exist?**
 
-There are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=bcrypt) that exist which enable bcrypt. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.5+.
+There are a [few plugins](https://en-gb.wordpress.org/plugins/search.php?q=argon2i) that exist which enable argon2i. This plugin is different because we bypass the `PasswordHash` class and the `phpass` library that WordPress core uses. This plugin uses PHP's built-in `password_hash` and `password_verify` functions directly to only support PHP 5.5+.
 
 **I already use Two-factor authentication and/or prevent brute-force login attempts. Does this plugin still help?**
 
-Better hashing functions like bcrypt serve a different purpose than Two-factor authentication, brute-force attempt protection, or anything which acts at the log in stage. Strong hashing functions are important if an attacker is able to get access to your database. They will make it much harder/practically impossible to determine the plain-text passwords from the hashes. Whereas with MD5, this is trivial. Tools/plugins to protect logging in are still important and should be used together with this plugin.
+Better hashing functions like argon2i serve a different purpose than Two-factor authentication, brute-force attempt protection, or anything which acts at the log in stage. Strong hashing functions are important if an attacker is able to get access to your database. They will make it much harder/practically impossible to determine the plain-text passwords from the hashes. Whereas with MD5, this is trivial. Tools/plugins to protect logging in are still important and should be used together with this plugin.
 
 ## Further Reading
 

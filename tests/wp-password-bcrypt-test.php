@@ -1,6 +1,6 @@
 <?php
 
-namespace Roots\PasswordBcrypt\Tests;
+namespace Roots\PasswordArgon2I\Tests;
 
 use Brain\Monkey;
 use Brain\Monkey\Functions;
@@ -9,10 +9,10 @@ use Mockery as M;
 use PHPUnit_Framework_TestCase;
 
 /** {inheritdoc} */
-class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
+class WpPasswordArgon2ITest extends PHPUnit_Framework_TestCase
 {
     const PASSWORD = 'password';
-    const HASH_BCRYPT = '$2y$10$KIMXDMJq9camkaNHkdrmcOaYJ0AT9lvovEf92yWA34sKdfnn97F9i';
+    const HASH_ARGON2I = '$2y$10$KIMXDMJq9camkaNHkdrmcOaYJ0AT9lvovEf92yWA34sKdfnn97F9i';
     const HASH_PHPASS = '$P$BDMJH/qCLaUc5Lj8Oiwp7XmWzrCcJ21';
 
     /** {inheritdoc} */
@@ -39,14 +39,14 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function a_password_is_hashed_using_bcrypt()
+    public function a_password_is_hashed_using_argon2i()
     {
         $userId = 1;
 
         Functions::expect('wp_cache_delete')->once()->andReturn(true);
 
-        $bcrypt_hash = wp_set_password(self::PASSWORD, $userId);
-        $this->assertTrue(password_verify(self::PASSWORD, $bcrypt_hash));
+        $argon2i_hash = wp_set_password(self::PASSWORD, $userId);
+        $this->assertTrue(password_verify(self::PASSWORD, $argon2i_hash));
     }
 
     /** @test */
@@ -54,23 +54,23 @@ class WpPasswordBcryptTest extends PHPUnit_Framework_TestCase
     {
         wp_hash_password(self::PASSWORD);
 
-        Filters::expectApplied('wp_hash_password_options')->andReturn(self::HASH_BCRYPT);
+        Filters::expectApplied('wp_hash_password_options')->andReturn(self::HASH_ARGON2I);
     }
 
     /** @test */
-    public function bcrypt_passwords_should_be_verified()
+    public function argon2i_passwords_should_be_verified()
     {
         $bad_hash = 'randomhash';
 
-        $bcrypt_check = wp_check_password(self::PASSWORD, self::HASH_BCRYPT);
+        $argon2i_check = wp_check_password(self::PASSWORD, self::HASH_ARGON2I);
         $bad_check = wp_check_password(self::PASSWORD, $bad_hash);
 
-        $this->assertTrue($bcrypt_check);
+        $this->assertTrue($argon2i_check);
         $this->assertFalse($bad_check);
     }
 
     /** @test */
-    public function phpass_passwords_should_be_verified_and_converted_to_bcrypt()
+    public function phpass_passwords_should_be_verified_and_converted_to_argon2i()
     {
         global $wp_hasher;
 

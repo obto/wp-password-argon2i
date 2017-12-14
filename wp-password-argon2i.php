@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Password bcrypt
+ * Plugin Name: WP Password argon2i
  * Plugin URI:  https://roots.io
  * Description: Replaces wp_hash_password and wp_check_password with PHP 5.5's password_hash and password_verify.
  * Author:      Roots
@@ -12,7 +12,7 @@
 const WP_OLD_HASH_PREFIX = '$P$';
 
 /**
- * Check if user has entered correct password, supports bcrypt and pHash.
+ * Check if user has entered correct password, supports argon2i and pHash.
  *
  * @param string $password Plaintext password
  * @param string $hash Hash of password
@@ -44,7 +44,7 @@ function wp_check_password($password, $hash, $userId = '')
 }
 
 /**
- * Hash password using bcrypt
+ * Hash password using argon2i
  *
  * @param string $password Plaintext password
  * @return bool|string
@@ -52,11 +52,11 @@ function wp_check_password($password, $hash, $userId = '')
 function wp_hash_password($password)
 {
     $options = apply_filters('wp_hash_password_options', []);
-    return password_hash($password, PASSWORD_DEFAULT, $options);
+    return password_hash($password, PASSWORD_ARGON2I, $options);
 }
 
 /**
- * Set password using bcrypt
+ * Set password using argon2i
  *
  * @param string $password Plaintext password
  * @param int $userId ID of user to whom password belongs

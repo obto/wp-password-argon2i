@@ -1,8 +1,8 @@
 {
-  "name": "roots/wp-password-bcrypt",
+  "name": "obto/wp-password-argon2i",
   "license": "MIT",
-  "description": "WordPress plugin which replaces wp_hash_password and wp_check_password's phpass hasher with PHP 5.5's password_hash and password_verify using bcrypt.",
-  "homepage": "https://roots.io/plugins/wp-password-bcrypt",
+  "description": "WordPress plugin which replaces wp_hash_password and wp_check_password's phpass hasher with PHP 5.5's password_hash and password_verify using argon2i.",
+  "homepage": "https://github.com/obto/wp-password-argon2i",
   "authors": [
     {
       "name": "Scott Walkinshaw",
@@ -20,10 +20,10 @@
     }
   ],
   "keywords": [
-    "wordpress wp bcrypt password"
+    "wordpress wp argon2i password"
   ],
   "support": {
-    "issues": "https://github.com/roots/wp-password-bcrypt/issues",
+    "issues": "https://github.com/obto/wp-password-argon2i/issues",
     "forum": "https://discourse.roots.io/"
   },
   "require": {
@@ -37,7 +37,7 @@
     "phpunit/phpunit": "^4.8.23|^5.2.9"
   },
   "autoload": {
-    "files": ["wp-password-bcrypt.php"]
+    "files": ["wp-password-argon2i.php"]
   },
   "archive" : {
     "exclude": [

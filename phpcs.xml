@@ -3,7 +3,7 @@
   <description>Roots Coding Standards</description>
 
   <!-- Scan these files -->
-  <file>wp-password-bcrypt.php</file>
+  <file>wp-password-argon2i.php</file>
 
   <!-- Show colors in console -->
   <arg value="-colors"/>
